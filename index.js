@@ -45,6 +45,8 @@ io.on('connection', (socket) => {
         ++numUsers;
 
     ro = io.sockets.adapter.rooms[room];
+                console.log(ro);
+
     numUsers= ro.length;
     console.log(numUsers);
     addedUser = true;
@@ -79,6 +81,8 @@ io.on('connection', (socket) => {
          --numUsers;
 
     ro = io.sockets.adapter.rooms[room];
+                      console.log(ro);
+
       if(ro){
       numUsers= ro.length;
             console.log(numUsers);
@@ -90,6 +94,8 @@ io.on('connection', (socket) => {
       });
       } else{
         numUsers=0;
+                    console.log(numUsers);
+
         socket.to(room).emit('user left', {
         username: socket.username,
         numUsers: numUsers
