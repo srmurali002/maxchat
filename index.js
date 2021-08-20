@@ -15,7 +15,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Chatroom
 
-var numUsers;
+var numUsers = 0;
 var ro;
 
 io.on('connection', (socket) => {
