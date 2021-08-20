@@ -46,6 +46,7 @@ io.on('connection', (socket) => {
 
     ro = io.sockets.adapter.rooms[room];
     numUsers= ro.length;
+    console.log(numUsers);
     addedUser = true;
     socket.emit('login', {
       numUsers: numUsers
@@ -80,6 +81,8 @@ io.on('connection', (socket) => {
     ro = io.sockets.adapter.rooms[room];
       if(ro){
       numUsers= ro.length;
+            console.log(numUsers);
+
       // echo globally that this client has left
       socket.to(room).emit('user left', {
         username: socket.username,
