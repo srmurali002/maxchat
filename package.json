@@ -9,7 +9,7 @@
   "license": "BSD",
   "dependencies": {
     "express"  : "latest",
-    "socket.io": "latest"
+    "socket.io": "1.0"
   },
     "scripts": {
     "start": "node index.js"
