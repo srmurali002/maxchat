@@ -18,17 +18,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 var numUsers = 0;
 var ro = null;
 
-io.on('connection', function (socket) {
+io.on('connection', (socket) => {
   var addedUser = false;
   var room = null;
   
-  socket.on('roomname',function(rm){
+  socket.on('roomname',(rm)==>{
     room = rm;
     socket.join(room);
   });
 
   // when the client emits 'new message', this listens and executes
-  socket.on('new message', function (data) {
+  socket.on('new message',(data) ==> {
     // we tell the client to execute 'new message'
     socket.to(room).emit('new message', {
       username: socket.username,
@@ -37,7 +37,7 @@ io.on('connection', function (socket) {
   });
 
   // when the client emits 'add user', this listens and executes
-  socket.on('add user', function (username) {
+  socket.on('add user', (username)==> {
     if (addedUser) return;
 
     // we store the username in the socket session for this client
@@ -56,14 +56,14 @@ io.on('connection', function (socket) {
   });
 
   // when the client emits 'typing', we broadcast it to others
-  socket.on('typing', function () {
+  socket.on('typing', ()==>{
     socket.to(room).emit('typing', {
       username: socket.username
     });
   });
 
   // when the client emits 'stop typing', we broadcast it to others
-  socket.on('stop typing', function () {
+  socket.on('stop typing', ()==> {
     socket.to(room).emit('stop typing', {
       username: socket.username
     });
@@ -71,7 +71,7 @@ io.on('connection', function (socket) {
   
 
   // when the user disconnects.. perform this
-  socket.on('disconnect', function () {
+  socket.on('disconnect',()==> {
     if (addedUser) {
     ro = io.sockets.adapter.rooms[room];
       if(ro){
