@@ -42,6 +42,8 @@ io.on('connection', (socket) => {
 
     // we store the username in the socket session for this client
     socket.username = username;
+        ++numUsers;
+
     ro = io.sockets.adapter.rooms[room];
     numUsers= ro.length;
     addedUser = true;
@@ -73,6 +75,8 @@ io.on('connection', (socket) => {
   // when the user disconnects.. perform this
   socket.on('disconnect',()=> {
     if (addedUser) {
+         --numUsers;
+
     ro = io.sockets.adapter.rooms[room];
       if(ro){
       numUsers= ro.length;
