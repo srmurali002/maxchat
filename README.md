@@ -1,5 +1,5 @@
 
-# Socket.IO Chat
+# Socket.IO Multi room Chat
 
 A simple chat demo for Socket.IO
 
