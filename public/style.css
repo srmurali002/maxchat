@@ -46,17 +46,13 @@ ul {
   width: 100%;
 }
 
-/* Login Page */
-
-.login.page {
-  background-color: #000;
-}
+/* Room Page */
 
 .room.page {
   background-color: #000;
 }
 
-.login.page .form {
+.room.page .form {
   height: 100px;
   margin-top: -100px;
   position: absolute;
@@ -66,7 +62,35 @@ ul {
   width: 100%;
 }
 
-.room.page .form {
+.room.page .form .roomInput {
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid #fff;
+  outline: none;
+  padding-bottom: 15px;
+  text-align: center;
+  width: 400px;
+}
+
+.room.page .title {
+  font-size: 200%;
+}
+
+.room.page .roomInput {
+  font-size: 200%;
+  letter-spacing: 3px;
+}
+.room.page .title, .room.page .roomInput {
+  color: #fff;
+  font-weight: 100;
+}
+/* Login Page */
+
+.login.page {
+  background-color: #000;
+}
+
+.login.page .form {
   height: 100px;
   margin-top: -100px;
   position: absolute;
@@ -86,40 +110,13 @@ ul {
   width: 400px;
 }
 
-.room.page .form .roomInput {
-  background-color: transparent;
-  border: none;
-  border-bottom: 2px solid #fff;
-  outline: none;
-  padding-bottom: 15px;
-  text-align: center;
-  width: 400px;
-}
 .login.page .title {
   font-size: 200%;
 }
-.room.page .title {
-  font-size: 200%;
-}
+
 .login.page .usernameInput {
   font-size: 200%;
   letter-spacing: 3px;
-}
-.room.page .roomInput {
-  font-size: 200%;
-  letter-spacing: 3px;
-}
-
-.relative {
-        width: 100%;
-        height: 100%;
-        position:absolute;
-        bottom: 0;
-        border: 3px solid #000000;
-        width: 100%;
-        float:left;
-  
-        
 }
 
 .login.page .title, .login.page .usernameInput {
@@ -127,22 +124,16 @@ ul {
   font-weight: 100;
 }
 
-.room.page .title, .room.page .roomInput {
-  color: #fff;
-  font-weight: 100;
-}
 /* Chat page */
 
 .chat.page {
   display: none;
-  background-color: black;
 }
 
 /* Font */
 
 .messages {
   font-size: 150%;
-  color: white;
 }
 
 .inputMessage {
@@ -161,7 +152,6 @@ ul {
 .chatArea {
   height: 100%;
   padding-bottom: 60px;
-  
 }
 
 .messages {
