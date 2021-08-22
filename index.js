@@ -15,20 +15,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Chatroom
 
-var numUsers = 0;
-var ro;
+let numUsers = 0;
 
 io.on('connection', (socket) => {
-  var addedUser = false;
-  var room = null;
-  
+  let addedUser = false;
+  let room ;
+
+//join said room
   socket.on('roomname',(rm)=>{
     room = rm;
     socket.join(room);
   });
 
   // when the client emits 'new message', this listens and executes
-  socket.on('new message',(data) => {
+  socket.on('new message', (data) => {
     // we tell the client to execute 'new message'
     socket.to(room).emit('new message', {
       username: socket.username,
@@ -37,18 +37,13 @@ io.on('connection', (socket) => {
   });
 
   // when the client emits 'add user', this listens and executes
-  socket.on('add user', (username)=> {
+  socket.on('add user', (username) => {
     if (addedUser) return;
 
     // we store the username in the socket session for this client
     socket.username = username;
-        ++numUsers;
-
-    ro = io.sockets.adapter.rooms[room];
-                console.log(ro);
-
-    numUsers= ro.length;
-    console.log(numUsers);
+    numUsers = io.sockets.adapter.rooms.get(room).size;
+    console.log(numUsers + ' users in '+ room);
     addedUser = true;
     socket.emit('login', {
       numUsers: numUsers
@@ -61,46 +56,34 @@ io.on('connection', (socket) => {
   });
 
   // when the client emits 'typing', we broadcast it to others
-  socket.on('typing', ()=>{
+  socket.on('typing', () => {
     socket.to(room).emit('typing', {
       username: socket.username
     });
   });
 
   // when the client emits 'stop typing', we broadcast it to others
-  socket.on('stop typing', ()=> {
+  socket.on('stop typing', () => {
     socket.to(room).emit('stop typing', {
       username: socket.username
     });
   });
-  
 
   // when the user disconnects.. perform this
-  socket.on('disconnect',()=> {
+  socket.on('disconnect', () => {
     if (addedUser) {
-         --numUsers;
-
-    ro = io.sockets.adapter.rooms[room];
-                      console.log(ro);
-
-      if(ro){
-      numUsers= ro.length;
-            console.log(numUsers);
-
+      let test = io.sockets.adapter.rooms.get(room);
+      if(test){
+        numUsers = test.size;
+      console.log(numUsers + ' users in '+ room);
       // echo globally that this client has left
       socket.to(room).emit('user left', {
         username: socket.username,
         numUsers: numUsers
       });
-      } else{
-        numUsers=0;
-                    console.log(numUsers);
-
-        socket.to(room).emit('user left', {
-        username: socket.username,
-        numUsers: numUsers
-      });
-      }
+    }else{
+      console.log('a room is deleted');
+    }
     }
   });
 });
